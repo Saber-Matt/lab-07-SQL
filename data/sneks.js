@@ -13,7 +13,7 @@ const sneks = [
     type: 'Danger Noodle',
     url: '',
     species: 'cobra',
-    accessory: 7,
+    accessory: 'top hat',
     isDeadlyWithTheVenom: true
   },
   {
@@ -29,7 +29,7 @@ const sneks = [
     type: 'Boop Rope',
     url: '',
     species: 'ball python',
-    accessory: 'jewled necklace',
+    accessory: 'jeweled necklace',
     isDeadlyWithTheVenom: false
   },
   {
@@ -54,13 +54,13 @@ const sneks = [
     url: '',
     species: 'cobra',
     accessory: 'poke-esk card',
-    isDeadlyWihTheVenom: true
+    isDeadlyWithTheVenom: true
   },
   {
     name: 'Giffee',
     type: 'Boop Rope',
     url: '',
-    species: ball python,
+    species: 'ball python',
     accessory: 'giraffe headband',
     isDeadlyWithTheVenom: false
   }
