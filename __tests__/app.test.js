@@ -7,29 +7,28 @@ const request = supertest(app);
 
 describe('API Routes', () => {
 
-  // beforeAll(() => {
-  //   execSync('npm run setup-db');
-  // });
-  beforeAll(() => {
-    execSync('npm run recreate-tables');
-  });
-
-
   afterAll(async () => {
     return client.end();
   });
 
-  //const expectedSneks = [
+  describe('/api/sneks', () => {
 
-  let sweaterNoodle = {
-    id: expect.any(Number),
-    name: 'Sweater Noodle',
-    type: 'Boop Rope',
-    url: '',
-    species: 'ball python',
-    accessory: 'sweater',
-    isDeadlyWithTheVenom: false
-  },
+    beforeAll(() => {
+      execSync('npm run recreate-tables');
+    });
+
+
+    //const expectedSneks = [
+
+    let sweaterNoodle = {
+      id: expect.any(Number),
+      name: 'Sweater Noodle',
+      type: 'Boop Rope',
+      url: '',
+      species: 'ball python',
+      accessory: 'sweater',
+      isDeadlyWithTheVenom: false
+    };
 
     // let topHatCober = {
     //   id: expect.any(Number),
@@ -49,7 +48,7 @@ describe('API Routes', () => {
       species: 'unknown',
       accessory: 'dual-wield short sword',
       isDeadlyWithTheVenom: true
-    },
+    };
 
     let patricia = {
       id: expect.any(Number),
@@ -59,7 +58,7 @@ describe('API Routes', () => {
       species: 'ball python',
       accessory: 'jeweled necklace',
       isDeadlyWithTheVenom: false
-    },
+    };
     //{
     // id: expect.any(Number),
     // name: 'Blade Slither',
@@ -96,27 +95,25 @@ describe('API Routes', () => {
     //   accessory: 'giraffe headband',
     //   isDeadlyWithTheVenom: false
     // }
-  ];
-
-  // If a GET request is made to /api/cats, does:
-  // 1) the server respond with status of 200
-  // 2) the body match the expected API data?
-
-  it('POST sweater noodle to /api/sneks', async () => {
-    const response = await request
-      .post('/api/sneks')
-      .send(sweaterNoodle);
-
-    expect(response.status).toBe(200);
-    expect(response.body).toEqual(sweaterNoodle);
-
-    sweaterNoodle = response.body;
-  });
 
 
-  //expect(response.status).toBe(200);
+    // If a GET request is made to /api/cats, does:
+    // 1) the server respond with status of 200
+    // 2) the body match the expected API data?
+
+    it('POST sweater noodle to /api/sneks', async () => {
+      const response = await request
+        .post('/api/sneks')
+        .send(sweaterNoodle);
+
+      expect(response.status).toBe(200);
+      expect(response.body).toEqual(sweaterNoodle);
+
+      sweaterNoodle = response.body;
+    });
 
 
+    //expect(response.status).toBe(200);
 
 
 
@@ -128,23 +125,27 @@ describe('API Routes', () => {
 
 
 
-  it('GET /api/sneks', async () => {
-    // act - make the request
-    const response = await request.get('/api/sneks');
 
-    // was response OK (200)?
-    expect(response.status).toBe(200);
 
-    // did it return the data we expected?
-    expect(response.body).toEqual(expectedSneks);
+    it('GET /api/sneks', async () => {
+      // act - make the request
+      const response = await request.get('/api/sneks');
 
-  });
+      // was response OK (200)?
+      expect(response.status).toBe(200);
 
-  // If a GET request is made to /api/cats/:id, does:
-  // 1) the server respond with status of 200
-  // 2) the body match the expected API data for the cat with that id?
-  it.skip('GET /api/sneks/:id', async () => {
-    const response = await request.get('/api/sneks/2');
-    expect(response.status).toBe(200);
-    expect(response.body).toEqual(expectedSneks[1]);
+      // did it return the data we expected?
+      expect(response.body).toEqual(expectedSneks);
+
+    });
+
+    // If a GET request is made to /api/cats/:id, does:
+    // 1) the server respond with status of 200
+    // 2) the body match the expected API data for the cat with that id?
+    it.skip('GET /api/sneks/:id', async () => {
+      const response = await request.get('/api/sneks/2');
+      expect(response.status).toBe(200);
+      expect(response.body).toEqual(expectedSneks[1]);
+    });
+
   });
