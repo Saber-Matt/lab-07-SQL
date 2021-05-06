@@ -7,34 +7,41 @@ const request = supertest(app);
 
 describe('API Routes', () => {
 
+  // beforeAll(() => {
+  //   execSync('npm run setup-db');
+  // });
   beforeAll(() => {
-    execSync('npm run setup-db');
+    execSync('npm run recreate-tables');
   });
+
 
   afterAll(async () => {
     return client.end();
   });
 
-  const expectedSneks = [
-    {
-      id: expect.any(Number),
-      name: 'Sweater Noodle',
-      type: 'Boop Rope',
-      url: '',
-      species: 'ball python',
-      accessory: 'sweater',
-      isDeadlyWithTheVenom: false
-    },
-    {
-      id: expect.any(Number),
-      name: 'Top Hat Cober',
-      type: 'Danger Noodle',
-      url: '',
-      species: 'cobra',
-      accessory: 'top hat',
-      isDeadlyWithTheVenom: true
-    },
-    {
+  //const expectedSneks = [
+
+  let sweaterNoodle = {
+    id: expect.any(Number),
+    name: 'Sweater Noodle',
+    type: 'Boop Rope',
+    url: '',
+    species: 'ball python',
+    accessory: 'sweater',
+    isDeadlyWithTheVenom: false
+  },
+
+    // let topHatCober = {
+    //   id: expect.any(Number),
+    //   name: 'Top Hat Cober',
+    //   type: 'Danger Noodle',
+    //   url: '',
+    //   species: 'cobra',
+    //   accessory: 'top hat',
+    //   isDeadlyWithTheVenom: true
+    // },
+
+    let bladeSlither = {
       id: expect.any(Number),
       name: 'Blade Slither',
       type: 'Danger Noodle',
@@ -43,7 +50,8 @@ describe('API Routes', () => {
       accessory: 'dual-wield short sword',
       isDeadlyWithTheVenom: true
     },
-    {
+
+    let patricia = {
       id: expect.any(Number),
       name: 'Patricia',
       type: 'Boop Rope',
@@ -52,47 +60,74 @@ describe('API Routes', () => {
       accessory: 'jeweled necklace',
       isDeadlyWithTheVenom: false
     },
-    {
-      id: expect.any(Number),
-      name: 'Blade Slither',
-      type: 'Danger Noodle',
-      url: '',
-      species: 'unknown',
-      accessory: 'dual-wield short sword',
-      isDeadlyWithTheVenom: true
-    },
-    {
-      id: expect.any(Number),
-      name: 'Hogball',
-      type: 'Boop Rope',
-      url: '',
-      species: 'hognose',
-      accessory: 'being adorable',
-      isDeadlyWithTheVenom: false
-    },
-    {
-      id: expect.any(Number),
-      name: 'PokeNoodle ',
-      type: 'Danger Noodle',
-      url: '',
-      species: 'cobra',
-      accessory: 'poke-esk card',
-      isDeadlyWithTheVenom: true
-    },
-    {
-      id: expect.any(Number),
-      name: 'Giffee',
-      type: 'Boop Rope',
-      url: '',
-      species: 'ball python',
-      accessory: 'giraffe headband',
-      isDeadlyWithTheVenom: false
-    }
+    //{
+    // id: expect.any(Number),
+    // name: 'Blade Slither',
+    // type: 'Danger Noodle',
+    // url: '',
+    // species: 'unknown',
+    // accessory: 'dual-wield short sword',
+    // isDeadlyWithTheVenom: true
+    // },
+    // let hogball = {
+    //   id: expect.any(Number),
+    //   name: 'Hogball',
+    //   type: 'Boop Rope',
+    //   url: '',
+    //   species: 'hognose',
+    //   accessory: 'being adorable',
+    //   isDeadlyWithTheVenom: false
+    //},
+    // let pokeNoodle = {
+    //   id: expect.any(Number),
+    //   name: 'PokeNoodle ',
+    //   type: 'Danger Noodle',
+    //   url: '',
+    //   species: 'cobra',
+    //   accessory: 'poke-esk card',
+    //   isDeadlyWithTheVenom: true
+    // },
+    // let giffee = {
+    //   id: expect.any(Number),
+    //   name: 'Giffee',
+    //   type: 'Boop Rope',
+    //   url: '',
+    //   species: 'ball python',
+    //   accessory: 'giraffe headband',
+    //   isDeadlyWithTheVenom: false
+    // }
   ];
 
   // If a GET request is made to /api/cats, does:
   // 1) the server respond with status of 200
   // 2) the body match the expected API data?
+
+  it('POST sweater noodle to /api/sneks', async () => {
+    const response = await request
+      .post('/api/sneks')
+      .send(sweaterNoodle);
+
+    expect(response.status).toBe(200);
+    expect(response.body).toEqual(sweaterNoodle);
+
+    sweaterNoodle = response.body;
+  });
+
+
+  //expect(response.status).toBe(200);
+
+
+
+
+
+
+
+
+
+
+
+
+
   it('GET /api/sneks', async () => {
     // act - make the request
     const response = await request.get('/api/sneks');
@@ -108,9 +143,8 @@ describe('API Routes', () => {
   // If a GET request is made to /api/cats/:id, does:
   // 1) the server respond with status of 200
   // 2) the body match the expected API data for the cat with that id?
-  test('GET /api/sneks/:id', async () => {
+  it.skip('GET /api/sneks/:id', async () => {
     const response = await request.get('/api/sneks/2');
     expect(response.status).toBe(200);
     expect(response.body).toEqual(expectedSneks[1]);
   });
-});
