@@ -129,13 +129,17 @@ describe('API Routes', () => {
 
     it('GET /api/sneks', async () => {
       // act - make the request
-      const response = await request.get('/api/sneks');
+      const res1 = await request.post('/api/sneks').send(bladeSlither);
+      bladeSlither = res1.body;
+      const res2 = await request.post('/api/sneks').send(patricia);
+      patricia = res2.body;
+      const response = await request.get('/api/sneks/');
 
       // was response OK (200)?
       expect(response.status).toBe(200);
 
       // did it return the data we expected?
-      expect(response.body).toEqual(expectedSneks);
+      expect(response.body).toEqual([sweaterNoodle, bladeSlither, patricia]);
 
     });
 
@@ -149,3 +153,4 @@ describe('API Routes', () => {
     });
 
   });
+});
