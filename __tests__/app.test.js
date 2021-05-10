@@ -12,9 +12,21 @@ describe('API Routes', () => {
   });
 
   describe('/api/sneks', () => {
+    let user;
 
-    beforeAll(() => {
+    beforeAll(async () => {
       execSync('npm run recreate-tables');
+
+      const response = await request
+        .post('/api/auth/signup')
+        .send({
+          name: 'Me the User',
+          email: 'me@user.com',
+          password: 'password'
+        });
+      expect(response.status).toBe(200);
+
+      user = response.body;
     });
 
 
@@ -101,7 +113,8 @@ describe('API Routes', () => {
     // 1) the server respond with status of 200
     // 2) the body match the expected API data?
 
-    it('POST sweater noodle to /api/sneks', async () => {
+    it.only('POST sweater noodle to /api/sneks', async () => {
+      sweaterNoodle.userId = user.id;
       const response = await request
         .post('/api/sneks')
         .send(sweaterNoodle);
@@ -116,18 +129,7 @@ describe('API Routes', () => {
     //expect(response.status).toBe(200);
 
 
-
-
-
-
-
-
-
-
-
-
-
-    it('GET /api/sneks', async () => {
+    it.skip('GET /api/sneks', async () => {
       // act - make the request
       const res1 = await request.post('/api/sneks').send(bladeSlither);
       bladeSlither = res1.body;
@@ -143,14 +145,11 @@ describe('API Routes', () => {
 
     });
 
-    // If a GET request is made to /api/cats/:id, does:
-    // 1) the server respond with status of 200
-    // 2) the body match the expected API data for the cat with that id?
-    it.skip('GET /api/sneks/:id', async () => {
-      const response = await request.get('/api/sneks/2');
-      expect(response.status).toBe(200);
-      expect(response.body).toEqual(expectedSneks[1]);
-    });
-
+    // // If a GET request is made to /api/cats/:id, does:
+    // // 1) the server respond with status of 200
+    // // 2) the body match the expected API data for the cat with that id?
+    // it.skip('GET /api/sneks/:id', async () => {
+    //   const response = await request.get('/api/sneks/2');
+    //   expect(response.status).toBe(200);
+    //   expect(response.body).toEqual(expectedSneks[1]);
   });
-});

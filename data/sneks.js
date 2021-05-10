@@ -32,14 +32,14 @@ const sneks = [
     accessory: 'jeweled necklace',
     isDeadlyWithTheVenom: false
   },
-  {
-    name: 'Blade Slither',
-    type: 'Danger Noodle',
-    url: '',
-    species: 'unknown',
-    accessory: 'dual-wield short sword',
-    isDeadlyWithTheVenom: true
-  },
+  // {
+  //   name: 'Blade Slither',
+  //   type: 'Danger Noodle',
+  //   url: '',
+  //   species: 'unknown',
+  //   accessory: 'dual-wield short sword',
+  //   isDeadlyWithTheVenom: true
+  // },
   {
     name: 'Hogball',
     type: 'Boop Rope',
