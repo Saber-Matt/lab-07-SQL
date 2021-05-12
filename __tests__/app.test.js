@@ -40,7 +40,8 @@ describe('API Routes', () => {
       url: '',
       species: 'ball python',
       accessory: 'sweater',
-      isDeadlyWithTheVenom: false
+      isDeadlyWithTheVenom: false,
+      userId: 1
     };
 
     // let topHatCober = {
@@ -60,7 +61,8 @@ describe('API Routes', () => {
       url: '',
       species: 'unknown',
       accessory: 'dual-wield short sword',
-      isDeadlyWithTheVenom: true
+      isDeadlyWithTheVenom: true,
+      userId: 1
     };
 
     let patricia = {
@@ -70,7 +72,8 @@ describe('API Routes', () => {
       url: '',
       species: 'ball python',
       accessory: 'jeweled necklace',
-      isDeadlyWithTheVenom: false
+      isDeadlyWithTheVenom: false,
+      userId: 1
     };
     //{
     // id: expect.any(Number),
@@ -130,7 +133,7 @@ describe('API Routes', () => {
     //expect(response.status).toBe(200);
 
 
-    it.skip('GET /api/sneks', async () => {
+    it('GET /api/sneks', async () => {
       // act - make the request
       const res1 = await request.post('/api/sneks').send(bladeSlither);
       bladeSlither = res1.body;
@@ -143,7 +146,7 @@ describe('API Routes', () => {
 
       // did it return the data we expected?
       expect(response.body).toEqual([sweaterNoodle, bladeSlither, patricia]);
-
+      //[sweaterNoodle, bladeSlither, patricia]
     });
 
     // // If a GET request is made to /api/cats/:id, does:
