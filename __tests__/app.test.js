@@ -22,9 +22,10 @@ describe('API Routes', () => {
         .send({
           name: 'Me the User',
           email: 'me@user.com',
-          password: 'password'
+          passwordHash: 'password'
         });
       expect(response.status).toBe(200);
+
 
       user = response.body;
     });
@@ -113,7 +114,7 @@ describe('API Routes', () => {
     // 1) the server respond with status of 200
     // 2) the body match the expected API data?
 
-    it.only('POST sweater noodle to /api/sneks', async () => {
+    it('POST sweater noodle to /api/sneks', async () => {
       sweaterNoodle.userId = user.id;
       const response = await request
         .post('/api/sneks')
