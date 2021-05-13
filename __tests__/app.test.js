@@ -137,6 +137,7 @@ describe('API Routes', () => {
       // act - make the request
       const res1 = await request.post('/api/sneks').send(bladeSlither);
       bladeSlither = res1.body;
+
       const res2 = await request.post('/api/sneks').send(patricia);
       patricia = res2.body;
       const response = await request.get('/api/sneks/');
@@ -156,6 +157,18 @@ describe('API Routes', () => {
     //   const response = await request.get('/api/sneks/2');
     //   expect(response.status).toBe(200);
     //   expect(response.body).toEqual(expectedSneks[1]);
+
+    it('PUT updated bladeSlither to /api/sneks/:id', async () => {
+      bladeSlither.accessory = 'dual-wield short sword';
+      bladeSlither.name = 'Blade Slither';
+
+      const response = await request
+        .put(`/api/sneks/${bladeSlither.id}`)
+        .send(bladeSlither);
+
+      expect(response.status).toBe(200);
+      expect(response.body).toEqual(bladeSlither);
+
+    });
   });
 });
-
