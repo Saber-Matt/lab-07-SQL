@@ -22,9 +22,10 @@ describe('API Routes', () => {
         .send({
           name: 'Me the User',
           email: 'me@user.com',
-          password: 'password'
+          passwordHash: 'password'
         });
       expect(response.status).toBe(200);
+
 
       user = response.body;
     });
@@ -39,7 +40,8 @@ describe('API Routes', () => {
       url: '',
       species: 'ball python',
       accessory: 'sweater',
-      isDeadlyWithTheVenom: false
+      isDeadlyWithTheVenom: false,
+      userId: 1
     };
 
     // let topHatCober = {
@@ -59,7 +61,8 @@ describe('API Routes', () => {
       url: '',
       species: 'unknown',
       accessory: 'dual-wield short sword',
-      isDeadlyWithTheVenom: true
+      isDeadlyWithTheVenom: true,
+      userId: 1
     };
 
     let patricia = {
@@ -69,7 +72,8 @@ describe('API Routes', () => {
       url: '',
       species: 'ball python',
       accessory: 'jeweled necklace',
-      isDeadlyWithTheVenom: false
+      isDeadlyWithTheVenom: false,
+      userId: 1
     };
     //{
     // id: expect.any(Number),
@@ -113,7 +117,7 @@ describe('API Routes', () => {
     // 1) the server respond with status of 200
     // 2) the body match the expected API data?
 
-    it.only('POST sweater noodle to /api/sneks', async () => {
+    it('POST sweater noodle to /api/sneks', async () => {
       sweaterNoodle.userId = user.id;
       const response = await request
         .post('/api/sneks')
@@ -129,10 +133,11 @@ describe('API Routes', () => {
     //expect(response.status).toBe(200);
 
 
-    it.skip('GET /api/sneks', async () => {
+    it('GET /api/sneks', async () => {
       // act - make the request
       const res1 = await request.post('/api/sneks').send(bladeSlither);
       bladeSlither = res1.body;
+
       const res2 = await request.post('/api/sneks').send(patricia);
       patricia = res2.body;
       const response = await request.get('/api/sneks/');
@@ -142,7 +147,7 @@ describe('API Routes', () => {
 
       // did it return the data we expected?
       expect(response.body).toEqual([sweaterNoodle, bladeSlither, patricia]);
-
+      //[sweaterNoodle, bladeSlither, patricia]
     });
 
     // // If a GET request is made to /api/cats/:id, does:
@@ -152,4 +157,18 @@ describe('API Routes', () => {
     //   const response = await request.get('/api/sneks/2');
     //   expect(response.status).toBe(200);
     //   expect(response.body).toEqual(expectedSneks[1]);
+
+    it('PUT updated bladeSlither to /api/sneks/:id', async () => {
+      bladeSlither.accessory = 'dual-wield short sword';
+      bladeSlither.name = 'Blade Slither';
+
+      const response = await request
+        .put(`/api/sneks/${bladeSlither.id}`)
+        .send(bladeSlither);
+
+      expect(response.status).toBe(200);
+      expect(response.body).toEqual(bladeSlither);
+
+    });
   });
+});
